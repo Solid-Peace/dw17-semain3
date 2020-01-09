@@ -6,11 +6,10 @@
 
 		$mh = new MongoHandler('quentin_vinot.documents');
 		$titles = $mh->displayTitleDocuments();
+				//print_r($titles);
 
 		foreach ($titles as $t) {
+			var_dump($t);
 			echo $t->fields->titre_avec_lien_vers_le_catalogue . "<br>";
 		}
 	?>
-
-
-<?php require_once 'footer.php'; ?>

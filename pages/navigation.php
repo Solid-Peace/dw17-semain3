@@ -4,9 +4,14 @@
 				<span>Tous les titres</span>
 			</div>	
 		</a>
-		<a href="index.php?output=allTitles">
+		<a href="index.php?output=rangTitles">
 			<div>
-				<span>Tous les titres</span>
+				<span>Top 10</span>
+			</div>	
+		</a>
+		<a href="index.php?output=auteurN">
+			<div>
+				<span>Auteurs</span>
 			</div>	
 		</a>
 	</nav>
