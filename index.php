@@ -1,25 +1,26 @@
 <?php 
-	require 'vendor/autoload.php'; 
-	require 'MongoHandler.php';
-
+session_start();
+require 'vendor/autoload.php'; 
+require 'MongoHandler.php';
+$base_url = $_SERVER['SERVER_NAME']
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>dw17 - semaine3</title>
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 <body>
 
-	<h3>Titres des films</h3>
+<?php require_once 'pages/navigation.php'; ?>
 
 	<?php 
-
-		$mh = new MongoHandler('quentin_vinot.documents');
-		$titles = $mh->displayTitleDocuments();
-
-		foreach ($titles as $t) {
-			echo $t->fields->titre_avec_lien_vers_le_catalogue . "<br>";
+	if (isset($_GET['output'])) {
+		if ($_GET['output'] == "allTitles") {
+			require_once 'pages/allTitles.php';
 		}
+	}
 	?>
 
 </body>

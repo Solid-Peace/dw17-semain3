@@ -1,0 +1,23 @@
+* {
+	box-sizing: border-box;
+	padding: .5em;
+	margin: 0em;
+}
+
+.nav {
+	display: flex;
+
+	div {
+		border: black 1px solid;
+		background-color: grey;
+	}
+
+	div:hover{
+		position: relative;
+		top: 2px;
+	}
+
+	a {
+			text-decoration: none;
+	}
+}
