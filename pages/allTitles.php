@@ -1,15 +1,18 @@
-<a href="index.php"> << Retour >> </a>
+<div class="section">
+	<div class="section-title">
+		<h3>Titres des films</h3>
+	</div>
 
-<h3>Titres des films</h3>
+	<div class="section-content">
+		<?php 
+		$filter = [];
+		$options = ['projection' => ['_id' => 0, 'fields.titre_avec_lien_vers_le_catalogue' => 1]];
 
-	<?php 
+		$rows = $mh->getQuery($filter, $options);
 
-		$mh = new MongoHandler('quentin_vinot.documents');
-		$titles = $mh->displayTitleDocuments();
-				//print_r($titles);
-
-		foreach ($titles as $t) {
-			var_dump($t);
-			echo $t->fields->titre_avec_lien_vers_le_catalogue . "<br>";
+		foreach ($rows as $r) {
+			echo $r->fields->titre_avec_lien_vers_le_catalogue . "<br>";
 		}
-	?>
+		?>
+	</div>
+</div>

@@ -4,8 +4,14 @@
 	margin: 0em;
 }
 
+
 .nav {
 	display: flex;
+	position: fixed;
+	top: 0em;
+	left: 0em;
+	background-color: #CCC;
+	width: 100%;
 
 	div {
 		border: black 1px solid;
@@ -20,4 +26,31 @@
 	a {
 			text-decoration: none;
 	}
+}
+
+.main {
+	margin-top: 5em;
+	display: flex;
+	justify-content: center;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	width: 30em;
+	margin: 0em;
+
+	.section-content {
+		border: solid black 1px;
+		overflow: scroll;
+		margin: 0px;
+	}
+
+	.section-title {
+		margin: 0px;
+		background-color: black;
+		color: white;
+	}
+
 }

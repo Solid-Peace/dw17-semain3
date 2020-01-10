@@ -13,8 +13,11 @@ $base_url = $_SERVER['SERVER_NAME']
 </head>
 <body>
 
-<?php require_once 'pages/navigation.php'; ?>
-
+<?php 
+	require_once 'pages/navigation.php'; 
+	$mh = new MongoHandler('quentin_vinot.documents');
+?>
+<div class="main">
 <?php 
 	if (isset($_GET['output'])) {
 		if ($_GET['output'] == "allTitles") {
@@ -26,22 +29,15 @@ $base_url = $_SERVER['SERVER_NAME']
 		if ($_GET['output'] == "auteurN") {
 			require_once 'pages/auteurN.php';
 		}
+		if ($_GET['output'] == "typeDocNot") {
+			require_once 'pages/typeDocNot.php';
+		}
+		if ($_GET['output'] == "typeDoc") {
+			require_once 'pages/typeDoc.php';
+		}
 	}
-
-$connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-
-$filter = array("fields" => array("titre_avec_lien_vers_le_catalogue" => "Dans la maison"));
-$options = array();
-
-$query = new MongoDB\Driver\Query($filter, $options);
-
-$rows = $connection->executeQuery('quentin_vinot.documents', $query);
-
-foreach($rows as $r){
-   print_r($r);
-}
-
 ?>
+</div>
 
 </body>
 </html>

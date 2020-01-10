@@ -14,4 +14,14 @@
 				<span>Auteurs</span>
 			</div>	
 		</a>
+		<a href="index.php?output=typeDocNot">
+			<div>
+				<span>Not Doc Type</span>
+			</div>	
+		</a>
+		<a href="index.php?output=typeDoc">
+			<div>
+				<span>Types de Doc</span>
+			</div>	
+		</a>
 	</nav>
