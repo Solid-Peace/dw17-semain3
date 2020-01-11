@@ -3,11 +3,8 @@
 /**
  * MongoHandler using MongoClient()
  */
-class MongoHandler
+class MongoHandlerClient
 {
-
-
-
 	 /**
    * @var string
    */
@@ -23,11 +20,41 @@ class MongoHandler
    */
 	public $collection;
 
-	function __construct(string $dbName, string $collectionName)
-	{
-		$this->dbName = $dbName;
-		$this->collectionName = $collectionName;
-		$this->collection =  (new MongoDB\Client)->$dbName->$collectionName;
+
+	 /**
+   * @var MongoDB\Client
+   */
+	public $db;
+
+	function __construct($dbName) {
+		$this->db = (new MongoDB\Client)->$dbName;
+	}
+
+	public function newUserCollection(string $dbName, string $collectionName = 'usersGroupeB') {
+		
+		$collections = $db->listCollections();
+		$db_user_not_exists = true;
+
+		foreach ($collections as $c) {
+			if($c['name'] == $collectionName) {
+				$db_user_not_exists = false;
+				break;
+			}
+		}
+
+		if($db_user_not_exists == true) {
+			$result = $db->createCollection($collectionName, [
+			'validator' => [
+				'username' => ['type' => 'string'], 
+				'password' => ['type' => 'string'], 
+				'loan' => ['type' => 'array']
+				]	
+			]);
+		}
+	}
+
+	public function newUser($userName, $password) {
+		
 	}
 }
 

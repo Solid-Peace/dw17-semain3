@@ -24,4 +24,22 @@
 				<span>Types de Doc</span>
 			</div>	
 		</a>
+<?php if (isset($_SESSION['session']) && !empty($_SESSION['session'])): ?>
+		<a class='login' href="index.php?output=logout">
+			<div>
+				<span><?php echo $_POST['user']; ?></span>
+				<span>Deconnexion</span>
+			</div>
+		</a>
+<?php else: ?>
+		<a class='login' href="index.php?output=login">
+			<div>
+				<span>Connexion</span>
+			</div>	
+		</a>
+<?php endif ?>
+
+
+	
+
 	</nav>

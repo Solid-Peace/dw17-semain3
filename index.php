@@ -2,6 +2,8 @@
 session_start();
 require 'vendor/autoload.php'; 
 require 'MongoHandler.php';
+require 'MongoHandlerClient.php';
+require 'Connexion.php';
 $base_url = $_SERVER['SERVER_NAME']
 ?>
 
@@ -34,6 +36,9 @@ $base_url = $_SERVER['SERVER_NAME']
 		}
 		if ($_GET['output'] == "typeDoc") {
 			require_once 'pages/typeDoc.php';
+		}
+		if ($_GET['output'] == "login") {
+			require_once 'pages/login.php';
 		}
 	}
 ?>

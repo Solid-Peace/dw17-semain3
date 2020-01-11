@@ -25,8 +25,7 @@
 					echo $r->fields->type_de_document . "<br>";
 				}
 			}
-	}
-
+		}
 	?>
 </div>
 </div>
