@@ -36,10 +36,11 @@ $base_url = $_SERVER['SERVER_NAME']
 <?php 
 
 //var_dump($_SESSION);
-
+/*
 echo '<br> <pre>';
 var_dump($mhc);
 echo "</pre>";
+*/
 
 	if (isset($_GET['output'])) {
 		if ($_GET['output'] == "allTitles") {
@@ -59,6 +60,9 @@ echo "</pre>";
 		}
 		if ($_GET['output'] == "login") {
 			require_once 'pages/login.php';
+		}
+		if ($_GET['output'] == "logout") {
+			require_once 'pages/logout.php';
 		}
 		if ($_GET['output'] == "exit") {
 			require_once 'pages/exit.php';

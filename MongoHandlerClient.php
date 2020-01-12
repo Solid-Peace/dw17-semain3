@@ -45,13 +45,7 @@ class MongoHandlerClient
 		}
 
 		if($db_user_not_exists == true) {
-			$result = $this->db->createCollection($userCollectionName, [
-			'validator' => [
-				'username' => ['type' => 'string'], 
-				'password' => ['type' => 'string'], 
-				'loan' => ['type' => 'array']
-				]	
-			]);
+			$result = $this->db->createCollection($userCollectionName);
 		}
 
 		return $db_user_not_exists;
@@ -61,19 +55,45 @@ class MongoHandlerClient
 		// vérifie qu'aucun utilisateur ne possède le même nom : 
 		$user_not_exists = true;
 		$userCollectionName = $this->userCollectionName;
-		$collection = $this->db->userCollectionName;
+		$collection = $this->db->$userCollectionName;
 
-		if($collection->find(['username' => $userName])) {
-			$user_not_exists = "l'utilisateur existe et n'a pas été créé";
-		}else{
-			$collection->insert([
+		$users = $collection->find(/*['username' => $userName]*/);
+
+		foreach ($users as $u) {
+			//var_dump($u);
+			if($u['username'] == $userName){
+				$user_not_exists = false;
+				break;
+			}
+		}
+		if( $user_not_exists == true ){
+	
+			$collection->insertOne([
 				'username' => $userName, 
-				'password' => $password,
-				'loan' => []
+				'password' => $password
 			]);
+
+			//var_dump($users);
+		}
+		return $user_not_exists;
+	}
+
+	public function login($userName, $password) {
+		$auth = false; 
+		$userCollectionName = $this->userCollectionName;
+		$collection = $this->db->$userCollectionName;
+
+		$users = $collection->find();
+
+		foreach ($users as $u) {
+			var_dump($u);
+			if($u['username'] == $userName && $u['password'] == $password){
+				$auth = true;
+				break;
+			}
 		}
 
-		return $user_not_exists;
+		return $auth;
 	}
 }
 

@@ -15,7 +15,7 @@ class Login {
 			$this->signin();
 		}
 		if ($submit == 'login') {
-			$this->login();
+			$this->login($user_name, $password);
 		}
 	}
 
@@ -25,16 +25,25 @@ class Login {
 		$db_user_not_exists = $mhc->newUserCollection();
 		$user_not_exists = $mhc->newUser($this->user_name, $this->password);
 
-		$this->message = "db_user_not_exists :"
-			. strval($db_user_not_exists)
-			. " - user_not_exists :"
-			. strval($user_not_exists);
+		if($user_not_exists == false) {
+			$this->message = "L'utilisateur ". $this->user_name." existe déjà";
+		}else{
+			$this->message = "L'utilisateur ". $this->user_name." a été créé, vous pouvez vous connecter";
+		}
+
 		return $this->message;
 	}
 
-	public function login() {
-		
-		return $this->message;
+	public function login($user_name, $password) {
+		global $mhc;
+		$auth = $mhc->login($user_name, $password);
+		if($auth == true) {
+			$_SESSION['login'] = ['user' => $user_name];
+			header('Location:'.$_SERVER['PHP_SELF']);
+		}else{
+			$this->message = "Les identifiants ne sont pas bon";
+			return $this->message;
+		}
 	}
 }
 

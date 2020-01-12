@@ -24,10 +24,10 @@
 				<span>Types de Doc</span>
 			</div>	
 		</a>
-<?php if (isset($_SESSION['session']) && !empty($_SESSION['session'])): ?>
+<?php if (isset($_SESSION['login']) && !empty($_SESSION['login'])): ?>
 		<a class='login' href="index.php?output=logout">
 			<div>
-				<span><?php echo $_POST['user']; ?></span>
+				<span><?php echo $_SESSION['login']['user']; ?></span>
 				<span>Deconnexion</span>
 			</div>
 		</a>
