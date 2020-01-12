@@ -10,7 +10,6 @@ $options = [
 	]];
 
 	$rows = $mh->getQuery($filter, $options);
-
 	if (isset($_GET['loan']) && !empty($_GET['loan'])) {
 		$result = $user->addLoan($_GET['loan']);
 		if($result) {
@@ -26,25 +25,47 @@ $options = [
 
 	if(isset($user->loanDocuments) && !empty($user->loanDocuments))
 	{
+
+		echo "<h3> Vos emprunts </h3>";
 		$loanDocuments = $user->loanDocuments;
 		$_loan = [];
-
 		foreach ($loanDocuments as $l) {
 			$_loan[] = $l;
 		}
-		var_dump($_loan);
-	}
-	?>
 
-	<h3>Bienvenue dans la médiathèque <?php echo $user->userName; ?></h3>
-	<?php 
-		//var_dump($user->loanDocuments);
-	/*
-		foreach ($user->loanDocuments as $d ) {
-			var_dump($d);
+			foreach ($_loan as $l) {
+				$filter = ['_id' => new MongoDB\BSON\ObjectID($l)];
+				$options = [
+					'projection' => [
+						'_id' => 1, 
+						'fields.titre_avec_lien_vers_le_catalogue' => 1, 
+						'fields.auteur' => 1,
+						'fields.type_de_document' => 1
+					]];
+					$loans = $mh->getQuery($filter, $options);
+					?>
+
+					<?php foreach ($loans as $i): ?>
+						<div>
+							<span><?php echo $i->fields->titre_avec_lien_vers_le_catalogue; ?>
+							</span> : 
+							<span>	
+								<form method="get" style="display: inline;">
+										<button type="submit" name="unloan" value="<?php echo $l ?>">Rendre</button>
+								</form>
+							</span>
+						</div>
+					
+								
+							
+					
+				<?php endforeach ?>
+				<?php
+			}	
 		}
-	*/
 		?>
+
+		<h3>Bienvenue dans la médiathèque <?php echo $user->userName; ?></h3>
 		<table>
 			<tr>
 				<th>Titre</th>
@@ -54,7 +75,6 @@ $options = [
 			</tr>
 
 			<?php foreach ($rows as $r): ?>
-
 				<?php $oid = $r->_id->__toString();?>
 
 				<tr>
