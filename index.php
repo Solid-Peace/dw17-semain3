@@ -5,6 +5,7 @@ require 'MongoHandler.php';
 require 'MongoHandlerClient.php';
 require 'Login.php';
 require 'Host.php';
+require 'User.php';
 $base_url = $_SERVER['SERVER_NAME']
 ?>
 
@@ -41,6 +42,10 @@ echo '<br> <pre>';
 var_dump($mhc);
 echo "</pre>";
 */
+
+	if(isset($_SESSION['login']) && !empty($_SESSION['login'])) {
+			require_once 'pages/mediatheque.php';
+		}
 
 	if (isset($_GET['output'])) {
 		if ($_GET['output'] == "allTitles") {

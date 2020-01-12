@@ -25,10 +25,13 @@ class MongoHandlerClient
    */
 	public $db;
 
+	public $userDocument;
+
 	function __construct($dbName, $userCollectionName = 'usersGroupeB') {
 		$this->userCollectionName = $userCollectionName;
 		$this->dbName = $dbName;
 		$this->db = (new MongoDB\Client)->$dbName;
+		$this->userDocument = $this->db->$userCollectionName;
 	}
 
 	public function newUserCollection(): string {
@@ -92,8 +95,29 @@ class MongoHandlerClient
 				break;
 			}
 		}
-
 		return $auth;
+	}
+
+	public function addLoan($username, $idDocument) {
+		$userCollectionName = $this->userCollectionName;
+		$collection = $this->db->$userCollectionName;
+
+		//$user = $collection->findOne(['username' => $username]);
+		$newdata = array('$addToSet' => array("loan" => $idDocument));
+		$result = $collection->updateMany(['username' => $username], $newdata);
+
+		return $result;
+	}
+
+	public function unLoan($username, $idDocument) {
+		$userCollectionName = $this->userCollectionName;
+		$collection = $this->db->$userCollectionName;
+
+		//$user = $collection->findOne(['username' => $username]);
+		$newdata = array('$pull' => array("loan" => $idDocument));
+		$result = $collection->updateMany(['username' => $username], $newdata);
+
+		return $result;
 	}
 }
 
