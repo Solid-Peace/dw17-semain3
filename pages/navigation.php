@@ -38,7 +38,11 @@
 			</div>	
 		</a>
 <?php endif ?>
-
+		<a href="index.php?output=exit">
+			<div>
+				<span>Exit</span>
+			</div>	
+		</a>
 
 	
 

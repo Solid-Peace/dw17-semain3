@@ -9,10 +9,10 @@ class MongoHandler
 	public $dbName;
 	public $mng;
 	
-	function __construct(string $dbName)
+	function __construct(string $dbName, string $hostAddress = 'mongodb://localhost:27017')
 	{
 		$this->dbName = $dbName;
-		$this->mng = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+		$this->mng = new MongoDB\Driver\Manager($hostAddress);
 	}
 
 
@@ -27,18 +27,6 @@ class MongoHandler
 
 		return $this->mng->executeQuery($this->dbName, $query);
 	}
-
-	public function displayAuteurN(): MongoDB\Driver\Cursor
-	{
-		$filter = ["fields" => ["titre_avec_lien_vers_le_catalogue" => "/^'N'/"]];
-		$options = [
-			"titre_avec_lien_vers_le_catalogue" => 1,
-			"auteur" => 1,
-			"_id" => 0];
-
-		return $this->executeQuery($this->initQuery($filter, $options));
-	}
-
 
 	public function getQuery( array $filter = [], array $options = [] ) : MongoDB\Driver\Cursor
 	{

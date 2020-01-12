@@ -54,4 +54,8 @@
   margin-left: auto;
 }
 
+form label {
+  display: block;
+}
+
 /*# sourceMappingURL=style.css.map */
